@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
+import 'package:solar_calculator_app/core/const/appRoute.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomButton.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomChooseSolarType.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomTextFormFeild.dart';
@@ -81,7 +83,12 @@ class _AreaInputState extends State<AreaInput> {
                 ],
               ),
               Spacer(),
-              CustomButton(text: "Calculation", onPressed: () {}),
+              CustomButton(
+                text: "Calculation",
+                onPressed: () {
+                  GoRouter.of(context).push(AppRoute.Arearesult);
+                },
+              ),
             ],
           ),
         ),

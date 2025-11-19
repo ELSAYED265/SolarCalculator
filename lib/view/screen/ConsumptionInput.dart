@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
+import 'package:solar_calculator_app/core/const/appRoute.dart';
 import 'package:solar_calculator_app/view/widget/ConsumptionIputWidget/CustomCardConsumption.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomAppBar.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomButton.dart';
@@ -19,32 +21,50 @@ class _ConsumptionInputState extends State<ConsumptionInput> {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
+        resizeToAvoidBottomInset: true, // يتأثر بالكيبورد
         backgroundColor: AppColor.primaryColor,
         appBar: CustomAppBar(title: "Energy Consumption"),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            children: [
-              const Text(
-                'Enter your average daily usage',
-                style: AppTextStyle.textStyle26,
-              ),
-              const SizedBox(height: 8),
-              // الوصف
-              Text(
-                'You can usually find this on your monthly electricity bill.',
-                style: AppTextStyle.textStyle16,
-              ),
-              const SizedBox(height: 26),
-              CustomCardConsumption(),
-              const Spacer(),
-              CustomButton(text: " Calculation", onPressed: () {}),
-              const SizedBox(height: 12),
-              Text(
-                'Don\'t know your consumption? Calculate with roof area.',
-                style: TextStyle(color: AppColor.brightColor, fontSize: 14),
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: SingleChildScrollView(
+            // المسافة اللي تحت تتأقلم مع ارتفاع الكيبورد
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Enter your average daily usage',
+                  style: AppTextStyle.textStyle26,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'You can usually find this on your monthly electricity bill.',
+                  style: AppTextStyle.textStyle16,
+                ),
+                const SizedBox(height: 26),
+
+                // الكارد اللي فيه TextFormField
+                const CustomCardConsumption(),
+
+                const SizedBox(height: 200),
+
+                CustomButton(
+                  text: " Calculation",
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRoute.consumptionResult);
+                  },
+                ),
+                const SizedBox(height: 12),
+
+                Text(
+                  'Don\'t know your consumption? Calculate with roof area.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColor.brightColor, fontSize: 14),
+                ),
+              ],
+            ),
           ),
         ),
       ),

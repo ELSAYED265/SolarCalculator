@@ -9,8 +9,8 @@ import '../widget/ConsumptionResult/customButtonConsumptionResult.dart';
 import '../widget/GenralWidget/ResultInfoCard.dart';
 import '../widget/resultArea/CustomButtonResultArea.dart';
 
-class CalculationResult extends StatelessWidget {
-  const CalculationResult({super.key});
+class ConsumptionResult extends StatelessWidget {
+  const ConsumptionResult({super.key});
 
   @override
   Widget build(BuildContext context) {
