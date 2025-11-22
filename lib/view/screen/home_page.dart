@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:solar_calculator_app/controller/Bloc/home_page_cubit.dart';
+import 'package:solar_calculator_app/controller/Bloc/AreaInputBloc/area_input_cubit.dart';
+import 'package:solar_calculator_app/controller/Bloc/HomePageBloc/home_page_cubit.dart';
 import 'package:solar_calculator_app/core/const/TextStyle.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 import 'package:solar_calculator_app/core/const/appRoute.dart';

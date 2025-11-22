@@ -12,7 +12,13 @@ class Customtextformfeild extends StatelessWidget {
   final String suffixText;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter number';
+        }
+        return null;
+      },
       keyboardType: TextInputType.number,
       style: const TextStyle(fontSize: 18),
       decoration: InputDecoration(

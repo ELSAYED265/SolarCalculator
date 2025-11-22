@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:solar_calculator_app/controller/Bloc/AreaInputBloc/area_input_cubit.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 import 'package:solar_calculator_app/core/const/appRoute.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomButton.dart';
@@ -25,71 +27,76 @@ class _AreaInputState extends State<AreaInput> {
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
         appBar: CustomAppBar(title: "Calculate by Available Area"),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Enter Available Area',
-                style: AppTextStyle.textStyle26,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Enter the total available area for installation in square meters.',
-                style: AppTextStyle.textStyle16,
-              ),
-              const SizedBox(height: 32),
-              Text('Available Area (m²)', style: AppTextStyle.textStyle17),
-              const SizedBox(height: 8),
-              Customtextformfeild(
-                hintText: "For example: 50",
-                suffixText: 'm²',
-              ),
-              const SizedBox(height: 24),
-              Text('Type of Solar Cells', style: AppTextStyle.textStyle17),
-              const SizedBox(height: 8),
-              CustomChooseSolartype(),
-              const SizedBox(height: 32),
-              Text(
-                'Are there fences or obstacles?',
-                style: AppTextStyle.textStyle17,
-              ),
-              const SizedBox(height: 8),
-              Row(
+        body: SingleChildScrollView(
+          child: Form(
+            key: context.read<AreaInputCubit>().formKey,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: ObstaclesOptionSelector(
-                      title: 'Yes',
-                      selected: false,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                      ),
-                      onPressed: () {},
-                    ),
+                  const Text(
+                    'Enter Available Area',
+                    style: AppTextStyle.textStyle26,
                   ),
-                  Expanded(
-                    child: ObstaclesOptionSelector(
-                      selected: true,
-                      title: 'No',
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Enter the total available area for installation in square meters.',
+                    style: AppTextStyle.textStyle16,
+                  ),
+                  const SizedBox(height: 32),
+                  Text('Available Area (m²)', style: AppTextStyle.textStyle17),
+                  const SizedBox(height: 8),
+                  Customtextformfeild(
+                    hintText: "For example: 50",
+                    suffixText: 'm²',
+                  ),
+                  const SizedBox(height: 24),
+                  Text('Type of Solar Cells', style: AppTextStyle.textStyle17),
+                  const SizedBox(height: 8),
+                  CustomChooseSolartype(),
+                  const SizedBox(height: 32),
+                  Text(
+                    'Are there fences or obstacles?',
+                    style: AppTextStyle.textStyle17,
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ObstaclesOptionSelector(
+                          title: 'Yes',
+                          selected: false,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            bottomLeft: Radius.circular(12),
+                          ),
+                          onPressed: () {},
+                        ),
                       ),
-                      onPressed: () {},
-                    ),
+                      Expanded(
+                        child: ObstaclesOptionSelector(
+                          selected: true,
+                          title: 'No',
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(12),
+                            bottomRight: Radius.circular(12),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 250),
+                  CustomButton(
+                    text: "Calculation",
+                    onPressed: () {
+                      context.read<AreaInputCubit>().getResult(context);
+                    },
                   ),
                 ],
               ),
-              Spacer(),
-              CustomButton(
-                text: "Calculation",
-                onPressed: () {
-                  GoRouter.of(context).push(AppRoute.Arearesult);
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),
