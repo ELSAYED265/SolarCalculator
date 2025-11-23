@@ -1,12 +1,20 @@
 part of 'area_input_cubit.dart';
 
 @immutable
-sealed class AreaInputState {}
+abstract class AreaInputState {}
 
-final class AreaInputInitial extends AreaInputState {}
+class AreaInputInitial extends AreaInputState {}
 
-final class AreaInputSuccess extends AreaInputState {}
+class AreaInputSelectionChanged extends AreaInputState {
+  final bool selected;
+  AreaInputSelectionChanged(this.selected);
+}
 
-final class AreaInputLoading extends AreaInputState {}
+class AreaInputLoading extends AreaInputState {}
 
-final class AreaInputFailer extends AreaInputState {}
+class AreaInputSuccess extends AreaInputState {
+  final SolarSystemModel solarSystemModel;
+  AreaInputSuccess(this.solarSystemModel);
+}
+
+class AreaInputFailer extends AreaInputState {}

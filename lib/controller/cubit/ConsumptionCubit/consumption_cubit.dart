@@ -47,9 +47,7 @@ class ConsumptionCubit extends Cubit<ConsumptionState> {
             requiredArea: requiredArea,
             initialCost: initialCost,
           );
-          Future.delayed(const Duration(seconds: 10), () {
-            emit(ConsumptionSuccess(solarSystemModel));
-          });
+          emit(ConsumptionSuccess(solarSystemModel));
         }
       } catch (e) {
         emit(ConsumptionFailer());

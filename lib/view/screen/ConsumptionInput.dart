@@ -25,26 +25,17 @@ class _ConsumptionInputState extends State<ConsumptionInput> {
       child: BlocListener<ConsumptionCubit, ConsumptionState>(
         listener: (context, state) {
           if (state is ConsumptionLoading) {
-            // عرض Lottie Loading
             showDialog(
               context: context,
               barrierDismissible: false,
               builder: (_) => Dialog(
                 backgroundColor: Colors.transparent,
-                child: SizedBox(
-                  width: 150,
-                  height: 150,
-                  child: Lottie.asset(
-                    'assets/LottieFiles/loading.json',
-                    repeat: true,
-                  ),
+                child: Center(
+                  child: CircularProgressIndicator(color: AppColor.brightColor),
                 ),
               ),
             );
           } else {
-            // غلق الـ Dialog لو مفتوح
-            if (Navigator.canPop(context)) Navigator.pop(context);
-
             if (state is ConsumptionSuccess) {
               GoRouter.of(context).push(AppRoute.consumptionResult);
             }

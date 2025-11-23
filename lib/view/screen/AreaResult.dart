@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:solar_calculator_app/controller/cubit/AreaInputCubit/area_input_cubit.dart';
 import 'package:solar_calculator_app/core/const/TextStyle.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomAppBar.dart';
@@ -13,6 +15,7 @@ class AreaResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<AreaInputCubit>().solarSystemModel!;
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
@@ -25,25 +28,26 @@ class AreaResult extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 16),
-                ResultInfoCard(
-                  icon: FontAwesomeIcons.ruler,
-                  title: 'Actual Area',
-                  subtitle: '90 m²',
-                ),
+                // ResultInfoCard(
+                //   icon: FontAwesomeIcons.ruler,
+                //   title: 'Actual Area',
+                //   subtitle: '90 m²',
+                // ),
                 ResultInfoCard(
                   icon: Icons.solar_power,
                   title: "Number of Panels",
-                  subtitle: '15',
+                  subtitle: '${model.numberOfPanels}',
                 ),
                 ResultInfoCard(
                   icon: Icons.flash_on,
-                  title: "Total Plant Capacity",
-                  subtitle: '5.4 kW',
+                  title: "Required Plant Capacity",
+                  subtitle:
+                      '${model.actualSystemCapacityKwp.toStringAsFixed(3)}kW',
                 ),
                 ResultInfoCard(
                   icon: Icons.monetization_on,
                   title: "Estimated Cost",
-                  subtitle: '\$4,860',
+                  subtitle: '\$${model.initialCost.toStringAsFixed(2)}',
                 ),
                 const SizedBox(height: 20),
                 const Text(
