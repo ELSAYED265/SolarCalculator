@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:solar_calculator_app/controller/cubit/ConsumptionCubit/consumption_cubit.dart';
 import 'package:solar_calculator_app/core/const/TextStyle.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 import 'package:solar_calculator_app/view/widget/ConsumptionResult/InfoAboutConsumtionResult.dart';
@@ -14,6 +17,7 @@ class ConsumptionResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<ConsumptionCubit>().solarSystemModel!;
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
@@ -35,22 +39,24 @@ class ConsumptionResult extends StatelessWidget {
                 ResultInfoCard(
                   icon: Icons.flash_on,
                   title: 'Required Plant Capacity',
-                  subtitle: '5.2 kW',
+                  subtitle:
+                      '${model.actualSystemCapacityKwp.toStringAsFixed(3)}' +
+                      'KWp',
                 ),
                 ResultInfoCard(
                   icon: Icons.area_chart,
                   title: "Required Area for Panels",
-                  subtitle: '26 m²',
+                  subtitle: '${model.requiredArea}' + 'm²',
                 ),
                 ResultInfoCard(
                   icon: Icons.grid_view,
                   title: "Number of Panels Needed",
-                  subtitle: '12',
+                  subtitle: '${model.numberOfPanels}',
                 ),
                 ResultInfoCard(
                   icon: Icons.attach_money,
                   title: "Estimated Cost",
-                  subtitle: '\$4,860',
+                  subtitle: '\$${model.initialCost.toStringAsFixed(2)}',
                 ),
                 const SizedBox(height: 20),
                 CustombuttonResultarea(),

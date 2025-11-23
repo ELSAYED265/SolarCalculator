@@ -7,9 +7,11 @@ class Customtextformfeild extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.suffixText,
+    this.controller,
   });
   final String hintText;
   final String suffixText;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -19,6 +21,7 @@ class Customtextformfeild extends StatelessWidget {
         }
         return null;
       },
+      controller: controller,
       keyboardType: TextInputType.number,
       style: const TextStyle(fontSize: 18),
       decoration: InputDecoration(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 import 'package:solar_calculator_app/core/const/appRoute.dart';
 import 'package:solar_calculator_app/view/widget/ConsumptionIputWidget/CustomCardConsumption.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomAppBar.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomButton.dart';
-
-import '../../controller/Bloc/ConsumptionBloc/consumption_cubit.dart';
+import '../../controller/cubit/ConsumptionCubit/consumption_cubit.dart';
 import '../../core/const/TextStyle.dart';
 
 class ConsumptionInput extends StatefulWidget {
@@ -22,52 +22,89 @@ class _ConsumptionInputState extends State<ConsumptionInput> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: Scaffold(
-        resizeToAvoidBottomInset: true, // يتأثر بالكيبورد
-        backgroundColor: AppColor.primaryColor,
-        appBar: CustomAppBar(title: "Energy Consumption"),
-        body: Form(
-          key: context.read<ConsumptionCubit>().formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: SingleChildScrollView(
-              // المسافة اللي تحت تتأقلم مع ارتفاع الكيبورد
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+      child: BlocListener<ConsumptionCubit, ConsumptionState>(
+        listener: (context, state) {
+          if (state is ConsumptionLoading) {
+            // عرض Lottie Loading
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => Dialog(
+                backgroundColor: Colors.transparent,
+                child: SizedBox(
+                  width: 150,
+                  height: 150,
+                  child: Lottie.asset(
+                    'assets/LottieFiles/loading.json',
+                    repeat: true,
+                  ),
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Enter your average daily usage',
-                    style: AppTextStyle.textStyle26,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'You can usually find this on your monthly electricity bill.',
-                    style: AppTextStyle.textStyle16,
-                  ),
-                  const SizedBox(height: 26),
+            );
+          } else {
+            // غلق الـ Dialog لو مفتوح
+            if (Navigator.canPop(context)) Navigator.pop(context);
 
-                  // الكارد اللي فيه TextFormField
-                  const CustomCardConsumption(),
+            if (state is ConsumptionSuccess) {
+              GoRouter.of(context).push(AppRoute.consumptionResult);
+            }
 
-                  const SizedBox(height: 230),
+            if (state is ConsumptionFailer) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Error occurred')));
+            }
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: AppColor.primaryColor,
+          appBar: CustomAppBar(title: "Energy Consumption"),
+          body: Form(
+            key: context.read<ConsumptionCubit>().formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Enter your average daily usage',
+                      style: AppTextStyle.textStyle26,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'You can usually find this on your monthly electricity bill.',
+                      style: AppTextStyle.textStyle16,
+                    ),
+                    const SizedBox(height: 26),
 
-                  CustomButton(
-                    text: " Calculation",
-                    onPressed: () {
-                      context.read<ConsumptionCubit>().getResult(context);
-                    },
-                  ),
-                  const SizedBox(height: 12),
+                    // الكارد اللي فيه TextFormField
+                    const CustomCardConsumption(),
 
-                  Text(
-                    'Don\'t know your consumption? Calculate with roof area.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColor.brightColor, fontSize: 14),
-                  ),
-                ],
+                    const SizedBox(height: 230),
+
+                    CustomButton(
+                      text: "Calculation",
+                      onPressed: () {
+                        context.read<ConsumptionCubit>().getResult(context);
+                      },
+                    ),
+                    const SizedBox(height: 12),
+
+                    Text(
+                      'Don\'t know your consumption? Calculate with roof area.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColor.brightColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

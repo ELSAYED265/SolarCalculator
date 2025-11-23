@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomChooseSolarType.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomTextFormFeild.dart';
 
+import '../../../controller/cubit/ConsumptionCubit/consumption_cubit.dart';
 import '../../../core/const/TextStyle.dart';
 import '../../../core/const/appColor.dart';
 
-class CustomCardConsumption extends StatefulWidget {
+class CustomCardConsumption extends StatelessWidget {
   const CustomCardConsumption({super.key});
 
   @override
-  State<CustomCardConsumption> createState() => _CustomCardConsumptionState();
-}
-
-class _CustomCardConsumptionState extends State<CustomCardConsumption> {
-  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ConsumptionCubit>();
+
     return Card(
       elevation: 4,
       color: AppColor.DarkColor,
@@ -26,13 +25,15 @@ class _CustomCardConsumptionState extends State<CustomCardConsumption> {
           children: [
             Text('Consumption', style: AppTextStyle.textStyle17),
             const SizedBox(height: 8),
-            Customtextformfeild(hintText: 'e.g., 25', suffixText: 'kWh / day'),
+            Customtextformfeild(
+              hintText: 'e.g., 25',
+              suffixText: 'kWh / day',
+              controller: cubit.controller,
+            ),
             const SizedBox(height: 30),
             Text('Solar Cell Type', style: AppTextStyle.textStyle17),
-
             const SizedBox(height: 8),
-            CustomChooseSolartype(),
-            // الوصف أسفل القائمة المنسدلة
+            const CustomChooseSolartype(),
             const Padding(
               padding: EdgeInsets.only(top: 8.0),
               child: Text(

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solar_calculator_app/controller/Bloc/ConsumptionBloc/consumption_cubit.dart';
 import 'package:solar_calculator_app/view/screen/ConsumptionInput.dart';
 import 'package:solar_calculator_app/view/screen/home_page.dart';
-
-import 'controller/Bloc/AreaInputBloc/area_input_cubit.dart';
-import 'controller/Bloc/HomePageBloc/home_page_cubit.dart';
+import 'controller/cubit/AreaInputCubit/area_input_cubit.dart';
+import 'controller/cubit/ConsumptionCubit/consumption_cubit.dart';
+import 'controller/cubit/HomePageCubit/home_page_cubit.dart';
 import 'core/const/appRoute.dart';
 
 void main() {
