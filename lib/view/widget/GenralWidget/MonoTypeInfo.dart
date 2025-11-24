@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class InfoaboutConsumptionResult extends StatelessWidget {
-  const InfoaboutConsumptionResult({super.key});
+class MonoTypeInfo extends StatelessWidget {
+  const MonoTypeInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.info_outline, size: 20, color: Color(0xFF0A531E)),
+        Icon(Icons.solar_power, size: 20, color: Colors.white70), // ← لون جديد
         const SizedBox(width: 8),
-        const Expanded(
+        Expanded(
           child: Text(
-            'Results and costs are preliminary estimates and may vary based on location, panel efficiency, and market prices.',
+            'All calculations are based on N-type mono-crystalline (550–580 W each).',
             style: TextStyle(
               fontSize: 13,
-              color: Color(0xFF0A531E),
+              color: Colors.white70, // ← نفس اللون الجديد
               height: 1.4,
             ),
           ),

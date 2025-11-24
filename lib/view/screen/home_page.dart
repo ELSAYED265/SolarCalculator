@@ -39,8 +39,9 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Choose What You Want to Calculate",
+                  "How would you like to design\n?your solar system",
                   style: AppTextStyle.textStyle16,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 100),
 
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
                     cubit.chooseItem(1);
                   },
                   icon: Icons.bolt_outlined,
-                  title: "Calculate Daily Consumption",
+                  title: "Based on energy consumption",
                   subtitle: "Enter bill or device usage",
                 ),
                 const SizedBox(height: 14),
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
                     cubit.chooseItem(2);
                   },
                   icon: Icons.grid_on,
-                  title: "Calculate the available area",
+                  title: "Based on available area",
                   subtitle: "Enter Available space",
                 ),
 

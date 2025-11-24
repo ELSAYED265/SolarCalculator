@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 
 class CustombuttonResultarea extends StatelessWidget {
-  const CustombuttonResultarea({super.key});
-
+  const CustombuttonResultarea({super.key, required this.onPressed});
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {
-        // Logic for generating PDF report
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.secondColor,
         minimumSize: const Size(double.infinity, 55),

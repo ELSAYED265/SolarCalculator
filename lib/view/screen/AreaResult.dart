@@ -6,6 +6,8 @@ import 'package:solar_calculator_app/core/const/TextStyle.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomAppBar.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomButton.dart';
+import 'package:solar_calculator_app/view/widget/GenralWidget/InfoAboutResult.dart';
+import 'package:solar_calculator_app/view/widget/GenralWidget/MonoTypeInfo.dart';
 
 import '../widget/GenralWidget/ResultInfoCard.dart';
 import '../widget/resultArea/CustomButtonResultArea.dart';
@@ -42,7 +44,7 @@ class AreaResult extends StatelessWidget {
                   icon: Icons.flash_on,
                   title: "Required Plant Capacity",
                   subtitle:
-                      '${model.actualSystemCapacityKwp.toStringAsFixed(3)}kW',
+                      '${model.actualSystemCapacityKwp.toStringAsFixed(3)}KWp',
                 ),
                 ResultInfoCard(
                   icon: Icons.monetization_on,
@@ -50,17 +52,19 @@ class AreaResult extends StatelessWidget {
                   subtitle: '\$${model.initialCost.toStringAsFixed(2)}',
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'These numbers are estimates and may vary based on panel type and other factors.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white70, fontSize: 14),
-                ),
+                MonoTypeInfo(),
+                const SizedBox(height: 12),
+                InfoaboutResult(),
                 Spacer(),
-                CustombuttonResultarea(),
+                CustombuttonResultarea(
+                  onPressed: () {
+                    context.read<AreaInputCubit>().generateAreaResultPdf();
+                  },
+                ),
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      // Logic for starting a new calculation
+                      context.read<AreaInputCubit>().Recalculate(context);
                     },
                     child: const Text(
                       'New Calculation',

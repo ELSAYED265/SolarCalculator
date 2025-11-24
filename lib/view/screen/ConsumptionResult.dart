@@ -5,10 +5,11 @@ import 'package:lottie/lottie.dart';
 import 'package:solar_calculator_app/controller/cubit/ConsumptionCubit/consumption_cubit.dart';
 import 'package:solar_calculator_app/core/const/TextStyle.dart';
 import 'package:solar_calculator_app/core/const/appColor.dart';
-import 'package:solar_calculator_app/view/widget/ConsumptionResult/InfoAboutConsumtionResult.dart';
+import 'package:solar_calculator_app/view/widget/GenralWidget/InfoAboutResult.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomAppBar.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomButton.dart';
 import '../widget/ConsumptionResult/customButtonConsumptionResult.dart';
+import '../widget/GenralWidget/MonoTypeInfo.dart';
 import '../widget/GenralWidget/ResultInfoCard.dart';
 import '../widget/resultArea/CustomButtonResultArea.dart';
 
@@ -46,7 +47,7 @@ class ConsumptionResult extends StatelessWidget {
                 ResultInfoCard(
                   icon: Icons.area_chart,
                   title: "Required Area for Panels",
-                  subtitle: '${model.requiredArea}' + 'm²',
+                  subtitle: '${model.requiredArea.toStringAsFixed(2)}' + 'm²',
                 ),
                 ResultInfoCard(
                   icon: Icons.grid_view,
@@ -59,11 +60,23 @@ class ConsumptionResult extends StatelessWidget {
                   subtitle: '\$${model.initialCost.toStringAsFixed(2)}',
                 ),
                 const SizedBox(height: 20),
-                CustombuttonResultarea(),
-                const SizedBox(height: 25),
-                InfoaboutConsumptionResult(),
+                CustombuttonResultarea(
+                  onPressed: () {
+                    context
+                        .read<ConsumptionCubit>()
+                        .generateConsumptionResultPdf();
+                  },
+                ),
+                const SizedBox(height: 12),
+                MonoTypeInfo(),
+                const SizedBox(height: 12),
+                InfoaboutResult(),
                 Spacer(),
-                CustomButtonConsumptionResult(onPressed: () {}),
+                CustomButtonConsumptionResult(
+                  onPressed: () {
+                    context.read<ConsumptionCubit>().Recalculate(context);
+                  },
+                ),
               ],
             ),
           ),

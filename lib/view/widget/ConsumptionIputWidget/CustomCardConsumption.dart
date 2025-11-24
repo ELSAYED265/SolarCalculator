@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:solar_calculator_app/view/widget/GenralWidget/CustomChooseSolarType.dart';
+import 'package:solar_calculator_app/view/widget/ConsumptionIputWidget/CustomChooseSolarTypeForConsum.dart';
 import 'package:solar_calculator_app/view/widget/GenralWidget/CustomTextFormFeild.dart';
 
 import '../../../controller/cubit/ConsumptionCubit/consumption_cubit.dart';
@@ -33,7 +33,7 @@ class CustomCardConsumption extends StatelessWidget {
             const SizedBox(height: 30),
             Text('Solar Cell Type', style: AppTextStyle.textStyle17),
             const SizedBox(height: 8),
-            const CustomChooseSolartype(),
+            CustomChooseSolartypeForConsum(),
             const Padding(
               padding: EdgeInsets.only(top: 8.0),
               child: Text(
